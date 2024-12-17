@@ -1,0 +1,37 @@
+model:
+  class_path: PythiaModel
+  init_args:
+    config_path: ../models/configs/pythiaTTT-14m.yaml
+    pretrained: False
+
+data:
+  class_path: PileDataModule
+  init_args:
+    dataset_name: "pile"
+    batch_size: 1
+    max_length: 2048
+
+trainer:
+  max_epochs: 3
+  val_check_interval: 100
+
+# logger:
+#   class_path: pytorch_lightning.loggers.TensorBoardLogger
+#   init_args:
+#     save_dir: logs
+#     name: pythia_model
+
+# Configuration for the validate subcommand (if needed)
+# validate:
+#   trainer:
+#     gpus: 1
+
+# # Configuration for the test subcommand (if needed)
+# test:
+#   trainer:
+#     gpus: 1
+
+# # Configuration for the predict subcommand (if needed)
+# predict:
+#   trainer:
+#     gpus: 1

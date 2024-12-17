@@ -1,0 +1,10 @@
+class_path: PileDataModule
+init_args:
+  dataset_name: "pile"
+  batch_size: 16
+  max_length: 2048
+  tokenizer_name_or_path: pythia_all/pythia-70m
+  # pile_file_ids: None
+  n_samples: -1
+  n_test_samples: 1000
+  num_workers: 50

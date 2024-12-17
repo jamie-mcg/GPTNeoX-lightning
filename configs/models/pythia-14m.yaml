@@ -1,0 +1,59 @@
+# model_config.yaml
+class_path: models.LLM
+init_args:
+  training:
+    optimizer: Adam
+    optimizer_args:
+      lr: 0.0001
+      betas: [0.9, 0.95]
+      eps: 1e-8
+      weight_decay: 0.1
+    lr_scheduler: CosineAnnealingLR
+    lr_scheduler_args:
+      T_max: 143000
+      eta_min: 0.00001
+    pl_lr_scheduler_args:
+      interval: step
+      frequency: 1
+      monitor: val_loss
+      warmup_steps: 1430
+    metrics:
+      - class_path: torchmetrics.text.Perplexity
+  inference:
+    num_samples: 100
+    metrics:
+      - class_path: torchmetrics.text.Perplexity
+  model:
+    class_path: PythiaModel
+    init_args:
+      pretrained: false
+      model_name_or_path: pythia_all/pythia-14m
+      tokenizer_name_or_path: pythia_all/pythia-70m
+      model:
+        class_path: models.gpt_neox.GPTNeoXForCausalLM
+        init_args:
+          config:
+            class_path: models.gpt_neox.GPTNeoXConfig
+            init_args:
+              # Model settings
+              vocab_size: 50304
+              hidden_size: 128
+              num_hidden_layers: 6
+              num_attention_heads: 4
+              intermediate_size: 512
+              hidden_act: gelu
+              rotary_pct: 0.25
+              rotary_emb_base: 10000
+              attention_dropout: 0.0
+              hidden_dropout: 0.0
+              classifier_dropout: 0.1
+              max_position_embeddings: 2048
+              initializer_range: 0.02
+              layer_norm_eps: 1e-5
+              pos_emb: rotary
+              no_weight_tying: true
+              gpt_j_residual: true
+              output_layer_parallelism: column
+              eos_token_id: 0
+              torch_dtype: float16
+
