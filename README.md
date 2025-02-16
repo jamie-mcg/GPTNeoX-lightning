@@ -1,4 +1,4 @@
-# LLM Template project
+# How to train your LLM (with Lightning)
 
 This repo is meant as a template for anyone wishing to experiment with LLMs on a more fundamental level. It is designed to piggy-back off all the great features of PyTorch Lightning and Lightning CLI - which allows basically full control of your experiments via config files!
 
